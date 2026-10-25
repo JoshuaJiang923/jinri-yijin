@@ -1,8 +1,8 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const cdpBase = "http://127.0.0.1:9222";
-const appUrl = "http://127.0.0.1:4173";
+const cdpBase = process.env.CDP_BASE || "http://127.0.0.1:9222";
+const appUrl = process.env.APP_URL || "http://127.0.0.1:4173";
 const outputDir = path.join(__dirname, "artifacts");
 
 fs.mkdirSync(outputDir, { recursive: true });
@@ -138,6 +138,24 @@ async function main() {
     );
     console.log("LAYOUT", JSON.stringify(layout, null, 2));
     await screenshot(client, "today-390.png");
+
+    const pwa = await evaluate(
+      client,
+      `(async () => {
+        const registration = await Promise.race([
+          navigator.serviceWorker.ready,
+          new Promise((_, reject) => setTimeout(() => reject(new Error('service worker timeout')), 5000))
+        ]);
+        const manifest = await fetch('./manifest.webmanifest').then((response) => response.json());
+        return {
+          activeWorker: Boolean(registration.active),
+          scope: registration.scope,
+          display: manifest.display,
+          startUrl: manifest.start_url
+        };
+      })()`,
+    );
+    console.log("PWA", JSON.stringify(pwa, null, 2));
 
     await evaluate(client, `document.querySelector('[data-view="progress"]').click()`);
     await wait(150);

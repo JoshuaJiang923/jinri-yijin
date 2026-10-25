@@ -9,6 +9,14 @@
 - 学习、提示词和客户反馈
 - 每周复盘
 
+## 在线使用
+
+HTTPS 地址：
+
+<https://joshuajiang923.github.io/jinri-yijin/>
+
+iPhone 使用 Safari 打开后，点“分享”→“添加到主屏幕”。在线地址只托管应用文件；个人记录保存在浏览器本地，不会上传到 GitHub。
+
 ## 启动
 
 需要 Node.js。双击 `start.cmd`，或在当前目录运行：
