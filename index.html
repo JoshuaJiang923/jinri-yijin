@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#173f35" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="今日一进" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="description"
+      content="一个把副业验证、工作收尾和日常精力放在一起的手机工具。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon-180.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>今日一进</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow" id="todayLabel">今天</p>
+          <h1>今日一进</h1>
+        </div>
+        <button class="icon-button" id="openSettings" type="button" aria-label="打开设置">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8-3.2c0-.5-.05-1-.14-1.47l1.73-1.35-2-3.46-2.06.83A8.1 8.1 0 0 0 15 4.83L14.7 2.6h-4L10.4 4.8c-.93.37-1.78.9-2.5 1.56l-2.06-.83-2 3.46 1.73 1.35A8.2 8.2 0 0 0 5.43 12c0 .5.05 1 .14 1.47l-1.73 1.35 2 3.46 2.06-.83c.73.67 1.58 1.2 2.51 1.57l.29 2.23h4l.3-2.23a8.1 8.1 0 0 0 2.53-1.57l2.06.83 2-3.46-1.73-1.35c.09-.47.14-.97.14-1.47Z"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <main id="app" class="app-content" aria-live="polite"></main>
+
+      <nav class="tab-bar" aria-label="主导航">
+        <button class="tab-item is-active" data-view="today" type="button">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 11.2 12 4l8 7.2V20h-5.4v-5.6H9.4V20H4v-8.8Z" />
+            </svg>
+          </span>
+          <span>今日</span>
+        </button>
+        <button class="tab-item" data-view="progress" type="button">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 18.5h3V10H4v8.5Zm6.5 0h3V5h-3v13.5Zm6.5 0h3V8h-3v10.5Z" />
+            </svg>
+          </span>
+          <span>推进</span>
+        </button>
+        <button class="capture-trigger" id="openCapture" type="button" aria-label="快速记录">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z" />
+          </svg>
+        </button>
+        <button class="tab-item" data-view="review" type="button">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 3h14v18H5V3Zm3 4v2h8V7H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z" />
+            </svg>
+          </span>
+          <span>复盘</span>
+        </button>
+        <button class="tab-item" data-view="notes" type="button">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 3h9l4 4v14H6V3Zm3 5h6V6H9v2Zm0 4h6v-2H9v2Zm0 4h6v-2H9v2Z" />
+            </svg>
+          </span>
+          <span>知识</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <section
+        class="bottom-sheet"
+        id="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <header class="sheet-header">
+          <h2 id="modalTitle">快速记录</h2>
+          <button class="icon-button icon-button--quiet" id="closeModal" type="button" aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5Z" />
+            </svg>
+          </button>
+        </header>
+        <form id="sheetForm" class="sheet-form"></form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <input class="visually-hidden" id="importFile" type="file" accept="application/json" />
+
+    <script src="./app.js"></script>
+  </body>
+</html>
